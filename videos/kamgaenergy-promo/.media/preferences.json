@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "website",
+      "confirmed_in": [
+        "kamgaenergy-promo"
+      ],
+      "updated_at": "2026-10-10T14:35:02.782Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "kamgaenergy-promo"
+      ],
+      "updated_at": "2026-10-10T14:35:02.835Z"
+    },
+    "language": {
+      "value": "fr",
+      "confirmed_in": [
+        "kamgaenergy-promo"
+      ],
+      "updated_at": "2026-10-10T14:35:02.884Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "kamgaenergy-promo"
+      ],
+      "updated_at": "2026-10-10T14:35:02.941Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "kamgaenergy-promo"
+      ],
+      "updated_at": "2026-10-10T14:35:02.995Z"
+    }
+  },
+  "sightings": {}
+}
