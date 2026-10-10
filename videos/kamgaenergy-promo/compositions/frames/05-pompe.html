@@ -11,7 +11,7 @@
                  height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; }
     #root .head h2 { font-size:54px; font-weight:700; letter-spacing:-0.02em; margin:0; }
     #root .body { display:grid; grid-template-columns:540px 1fr; gap:54px; flex:1; align-items:stretch; }
-    #root .fields { display:flex; flex-direction:column; }
+    #root .fields { display:flex; flex-direction:column; justify-content:center; }
     #root .f { margin-bottom:30px; }
     #root .f .lbl { display:flex; align-items:center; gap:13px; font-size:27px; color:#E8F3E4; margin-bottom:11px; }
     #root .f .tick { width:24px; height:24px; border-radius:50%; background:#5BC236; flex:none;
@@ -20,7 +20,7 @@
                          stroke-linecap:round; stroke-linejoin:round; }
     #root .f .track { height:10px; border-radius:5px; background:rgba(255,255,255,0.1); overflow:hidden; }
     #root .f .track i { display:block; height:100%; background:#5BC236; transform-origin:left center; }
-    #root .results { margin-top:auto; border-top:1.5px solid rgba(91,194,54,0.3); padding-top:26px; }
+    #root .results { margin-top:52px; border-top:1.5px solid rgba(91,194,54,0.3); padding-top:28px; }
     #root .results p { font-size:21px; letter-spacing:0.07em; text-transform:uppercase; color:#5BC236; margin:0 0 18px; }
     #root .chips { display:flex; flex-wrap:wrap; gap:12px; }
     #root .chip { border:1.5px solid rgba(91,194,54,0.45); border-radius:100px; padding:11px 22px;
@@ -80,6 +80,7 @@
       <div class="scheme">
         <svg viewBox="0 0 980 800" fill="none" aria-hidden="true">
           <circle id="f05-sun" class="st" cx="96" cy="74" r="40"/>
+          <g id="f05-sunrays" class="st"><path d="M96 16 L96 -4"/><path d="M48 32 L34 12"/><path d="M144 32 L158 12"/><path d="M40 74 L16 74"/><path d="M48 116 L34 136"/></g>
           <g id="f05-pv"><path class="st" d="M150 244 L206 132 L348 132 L292 244 Z"/><path class="st" d="M221 244 L277 132"/><path class="st" d="M178 188 L320 188"/><path class="st" d="M221 244 L221 296"/><path class="st" d="M182 296 L260 296"/></g>
           <path id="f05-ground" class="st" d="M24 300 L956 300"/>
           <g id="f05-tank"><path class="st" d="M648 296 L648 136 L896 136 L896 296"/><path class="st" d="M648 136 L896 136"/><path class="st" d="M684 296 L684 356"/><path class="st" d="M860 296 L860 356"/></g>
@@ -120,7 +121,8 @@
       tl.fromTo("#f05-tank", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "none" }, 1.5);
       tl.fromTo("#f05-tankwater", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.8, ease: "power1.inOut" }, 2.35);
       tl.fromTo("#f05-pv", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.0);
-      tl.fromTo("#f05-sun", { opacity: 0, scale: 0.4, transformOrigin: "92px 62px" }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 0.8);
+      tl.fromTo("#f05-sun", { opacity: 0, scale: 0.4, transformOrigin: "96px 74px" }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 0.8);
+      tl.fromTo("#f05-sunrays > path", { opacity: 0, scale: 0.5, transformOrigin: "96px 74px" }, { opacity: 1, scale: 1, duration: 0.42, stagger: 0.06, ease: "back.out(2)" }, 1.1);
 
       // chaque champ saisi fait apparaître sa cote
       const dims = ["#f05-dim1", "#f05-dim2", "#f05-dim3", null];
