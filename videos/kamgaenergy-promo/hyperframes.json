@@ -9,5 +9,37 @@
   "media": {
     "autoProxy": true
   },
-  "authoringSkill": "product-launch-video"
+  "authoringSkill": "product-launch-video",
+  "registryItems": [
+    {
+      "name": "oversized-cursor",
+      "type": "hyperframes:component",
+      "target": "compositions/components/oversized-cursor.html"
+    },
+    {
+      "name": "vignette",
+      "type": "hyperframes:component",
+      "target": "compositions/components/vignette.html"
+    },
+    {
+      "name": "grain-overlay",
+      "type": "hyperframes:component",
+      "target": "compositions/components/grain-overlay.html"
+    },
+    {
+      "name": "light-sweep-pass",
+      "type": "hyperframes:component",
+      "target": "compositions/components/light-sweep-pass.html"
+    },
+    {
+      "name": "directional-wipe",
+      "type": "hyperframes:component",
+      "target": "compositions/components/directional-wipe.html"
+    },
+    {
+      "name": "success-check",
+      "type": "hyperframes:component",
+      "target": "compositions/components/success-check.html"
+    }
+  ]
 }

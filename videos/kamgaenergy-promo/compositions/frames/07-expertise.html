@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#FFFFFF; font-family:"Archivo",system-ui,sans-serif; color:#111111;
+            padding:84px 130px; box-sizing:border-box; display:flex; flex-direction:column; }
+    #root .top { display:grid; grid-template-columns:1fr 640px; gap:60px; flex:1; align-items:center; }
+    #root .eyebrow { font-size:21px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+                     color:#33872B; margin:0 0 24px; }
+    #root .stmt { font-size:84px; font-weight:700; line-height:1.1; letter-spacing:-0.025em; margin:0; }
+    #root .stmt .a { display:block; color:#949494; }
+    #root .stmt .b { display:block; color:#111111; }
+    #root .stmt .b em { font-style:normal; color:#3FA535; }
+    #root .art svg { width:100%; height:auto; }
+    #root .art .ln { stroke:#111111; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    #root .art .gr { stroke:#3FA535; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    #root .art .fillg { fill:rgba(63,165,53,0.08); }
+    #root .chips { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:54px; }
+    #root .c { border-top:3px solid #3FA535; padding-top:22px; }
+    #root .c h4 { font-size:30px; font-weight:600; margin:0 0 8px; letter-spacing:-0.01em; }
+    #root .c p { font-size:23px; color:#5A5A5A; margin:0; line-height:1.45; }
+    #root .wipe { position:absolute; top:0; left:0; width:100%; height:100%; background:#3FA535;
+      z-index:99; pointer-events:none; }
+  </style>
+
+  <div id="root" data-composition-id="f07-expertise" data-width="1920" data-height="1080">
+    <div class="top">
+      <div>
+        <p class="eyebrow" id="f07-eyebrow">Expertise &amp; accompagnement</p>
+        <h2 class="stmt">
+          <span class="a" id="f07-a">L'outil prépare.</span>
+          <span class="b" id="f07-b">L'équipe <em>réalise.</em></span>
+        </h2>
+      </div>
+
+      <div class="art">
+        <svg id="f07-art" viewBox="0 0 640 460" fill="none" aria-hidden="true">
+          <rect class="fillg" id="f07-panelfill" x="146" y="96" width="330" height="190" rx="4"/>
+          <path class="ln" id="f07-pa" d="M146 286 L186 96 L476 96 L436 286 Z"/>
+          <path class="ln" id="f07-pb" d="M166 191 L456 191"/>
+          <path class="ln" id="f07-pc" d="M243 96 L223 286"/>
+          <path class="ln" id="f07-pd" d="M340 96 L320 286"/>
+          <path class="ln" id="f07-pe" d="M398 96 L378 286"/>
+          <path class="ln" id="f07-pf" d="M292 286 L292 372"/>
+          <path class="ln" id="f07-pg" d="M226 372 L358 372"/>
+          <!-- second module en perspective + soleil -->
+          <path class="gr" id="f07-q1" d="M486 322 L512 198 L616 198 L590 322 Z"/>
+          <path class="gr" id="f07-q2" d="M499 260 L603 260"/>
+          <path class="gr" id="f07-q3" d="M564 198 L538 322"/>
+          <path class="gr" id="f07-q4" d="M538 322 L538 384"/>
+          <path class="gr" id="f07-q5" d="M502 384 L574 384"/>
+          <circle class="gr" id="f07-sun2" cx="78" cy="68" r="34"/>
+          <g class="gr" id="f07-sunrays"><path d="M78 20 L78 2"/><path d="M38 34 L26 18"/><path d="M118 34 L130 18"/><path d="M30 68 L10 68"/></g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="chips">
+      <div class="c" data-c><h4>Installation</h4><p>Posée par une équipe qualifiée.</p></div>
+      <div class="c" data-c><h4>Maintenance</h4><p>Diagnostic et optimisation des installations.</p></div>
+      <div class="c" data-c><h4>Conseil</h4><p>Accompagnement technique de bout en bout.</p></div>
+    </div>
+    <div class="wipe" id="f07-wipe" data-layout-allow-overflow></div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const lines = ["#f07-pa","#f07-pb","#f07-pc","#f07-pd","#f07-pe","#f07-pf","#f07-pg"];
+      lines.forEach(function (sel) {
+        const el = document.querySelector(sel);
+        if (el && el.getTotalLength) { const l = el.getTotalLength(); gsap.set(el, { strokeDasharray: l, strokeDashoffset: l }); }
+      });
+      tl.fromTo("#f07-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.1);
+      tl.fromTo("#f07-a", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+      tl.fromTo("#f07-b", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.85);
+
+      tl.to(lines, { strokeDashoffset: 0, duration: 1.1, stagger: 0.11, ease: "power2.inOut" }, 0.5);
+      tl.fromTo("#f07-panelfill", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "none" }, 1.5);
+      tl.fromTo(["#f07-q1","#f07-q2","#f07-q3","#f07-q4","#f07-q5"], { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.55, stagger: 0.09, ease: "power3.out" }, 1.9);
+      tl.fromTo("#f07-sunrays > path", { opacity: 0, scale: 0.5, transformOrigin: "78px 68px" }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.06, ease: "back.out(2)" }, 2.5);
+      tl.fromTo("#f07-sun2", { opacity: 0, scale: 0.4, transformOrigin: "78px 68px" }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(2)" }, 2.2);
+
+      tl.fromTo("[data-c]", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.28, ease: "power3.out" }, 2.6);
+      // transition entrante : le vert se retire vers la gauche
+      tl.fromTo("#f07-wipe", { xPercent: 0 }, { xPercent: -101, duration: 0.42, ease: "power2.out" }, 0);
+      window.__timelines["f07-expertise"] = tl;
+    })();
+  </script>
+</template>
+</body></html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#FFFFFF; font-family:"Archivo",system-ui,sans-serif; color:#111111;
+            padding:92px 130px; box-sizing:border-box; display:flex; flex-direction:column; }
+    #root .eyebrow { font-size:21px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+                     color:#33872B; margin:0 0 14px; }
+    #root .title { font-size:58px; font-weight:700; letter-spacing:-0.02em; margin:0 0 54px; }
+    #root .grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr);
+                  gap:26px; flex:1; }
+    #root .tile { background:rgba(63,165,53,0.04); border:1.5px solid rgba(63,165,53,0.22);
+                  border-radius:14px; padding:34px 34px 30px; display:flex; flex-direction:column;
+                  justify-content:space-between; box-sizing:border-box; }
+    #root .tile svg { width:62px; height:62px; }
+    #root .tile .ic { stroke:#3FA535; stroke-width:3.2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    #root .tile h3 { font-size:30px; font-weight:600; line-height:1.24; margin:0; letter-spacing:-0.01em; }
+    #root .wipe { position:absolute; top:0; left:0; width:100%; height:100%; background:#3FA535;
+      z-index:99; pointer-events:none; }
+  </style>
+
+  <div id="root" data-composition-id="f03-services" data-width="1920" data-height="1080">
+    <p class="eyebrow" id="f03-eyebrow">Nos domaines d'intervention</p>
+    <h2 class="title" id="f03-title">Un seul interlocuteur, du premier schéma au dernier entretien.</h2>
+
+    <div class="grid">
+      <div class="tile" data-tile>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g class="ic">
+          <path d="M8 44 L18 16 L46 16 L56 44 Z"/><path d="M14 30 L50 30"/><path d="M26 16 L22 44"/><path d="M38 16 L42 44"/><path d="M32 44 L32 54"/><path d="M20 54 L44 54"/>
+        </g></svg>
+        <h3>Étude et installation photovoltaïque</h3>
+      </div>
+      <div class="tile" data-tile>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g class="ic">
+          <path d="M10 20 L54 20 L48 52 L16 52 Z"/><path d="M22 20 L22 12 L42 12 L42 20"/><path d="M26 32 L38 32"/>
+        </g></svg>
+        <h3>Vente de matériels et équipements</h3>
+      </div>
+      <div class="tile" data-tile>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g class="ic">
+          <path d="M32 8 C32 8 18 26 18 36 a14 14 0 0 0 28 0 C46 26 32 8 32 8 Z"/><path d="M32 44 a8 8 0 0 1-8-8"/>
+        </g></svg>
+        <h3>Pompage solaire</h3>
+      </div>
+      <div class="tile" data-tile>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g class="ic">
+          <rect x="18" y="10" width="28" height="44" rx="14"/><path d="M26 24 L38 24"/><path d="M26 34 L38 34"/><path d="M32 54 L32 60"/>
+        </g></svg>
+        <h3>Chauffe-eau solaires</h3>
+      </div>
+      <div class="tile" data-tile>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g class="ic">
+          <path d="M42 12 a12 12 0 0 0-16 16 L12 42 l10 10 l14-14 a12 12 0 0 0 16-16 l-8 8 l-8-8 Z"/>
+        </g></svg>
+        <h3>Maintenance et diagnostic</h3>
+      </div>
+      <div class="tile" data-tile>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g class="ic">
+          <path d="M10 14 L54 14 L54 42 L30 42 L18 52 L18 42 L10 42 Z"/><path d="M22 24 L42 24"/><path d="M22 32 L36 32"/>
+        </g></svg>
+        <h3>Conseil et accompagnement</h3>
+      </div>
+    </div>
+    <div class="wipe" id="f03-wipe" data-layout-allow-overflow></div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#f03-eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.05);
+      tl.fromTo("#f03-title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.2);
+      tl.fromTo("[data-tile]", { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.62, stagger: 0.2, ease: "power3.out" }, 0.65);
+      tl.fromTo("[data-tile] svg", { opacity: 0, scale: 0.7, transformOrigin: "50% 50%" },
+        { opacity: 1, scale: 1, duration: 0.5, stagger: 0.2, ease: "back.out(1.8)" }, 0.8);
+      // transition sortante : le vert de marque balaie vers la droite
+      tl.fromTo("#f03-wipe", { xPercent: -101 }, { xPercent: 0, duration: 0.38, ease: "power2.in" }, 9.62);
+      window.__timelines["f03-services"] = tl;
+    })();
+  </script>
+</template>
+</body></html>

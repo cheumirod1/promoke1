@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#FFFFFF; font-family:"Archivo",system-ui,sans-serif; color:#111111; }
+    #root .stage { position:absolute; inset:0; display:flex; flex-direction:column;
+                   justify-content:center; align-items:center; }
+    #root .sun-well { position:relative; width:700px; height:360px; overflow:hidden; margin-bottom:8px; }
+    #root .sun-rise { position:absolute; left:50%; bottom:-14px; width:520px; height:520px; margin-left:-260px; }
+    #root .horizon { position:absolute; left:0; right:0; bottom:0; height:3px; background:#3FA535;
+                     transform-origin:left center; }
+    #root .heading { font-size:88px; font-weight:700; line-height:1.08; letter-spacing:-0.02em;
+                     text-align:center; margin:0; max-width:1300px; }
+    #root .heading .accent { color:#3FA535; }
+    #root .line { display:block; overflow:hidden; }
+    #root .line > span { display:block; }
+    #root .mark-slot { position:absolute; left:0; right:0; bottom:88px; display:flex;
+                       justify-content:center; align-items:center; gap:0; }
+    #root .wm-a { background:#111111; color:#FFFFFF; font-weight:700; font-size:34px;
+                  letter-spacing:0.02em; padding:9px 18px 9px 20px; }
+    #root .wm-b { background:#33872B; color:#FFFFFF; font-weight:700; font-size:34px;
+                  letter-spacing:0.02em; padding:9px 20px 9px 18px; }
+  </style>
+
+  <div id="root" data-composition-id="f01-accroche" data-width="1920" data-height="1080">
+    <div class="stage">
+      <div class="sun-well" data-layout-allow-overflow>
+        <svg class="sun-rise" id="f01-sun" viewBox="0 0 420 420" fill="none" aria-hidden="true">
+          <g id="f01-rays" stroke="#3FA535" stroke-width="10" stroke-linecap="round">
+            <line x1="210" y1="52"  x2="210" y2="0"/>
+            <line x1="156" y1="62"  x2="138" y2="14"/>
+            <line x1="264" y1="62"  x2="282" y2="14"/>
+            <line x1="110" y1="94"  x2="74"  y2="56"/>
+            <line x1="310" y1="94"  x2="346" y2="56"/>
+            <line x1="80"  y1="140" x2="30"  y2="118"/>
+            <line x1="340" y1="140" x2="390" y2="118"/>
+            <line x1="66"  y1="196" x2="10"  y2="196"/>
+            <line x1="354" y1="196" x2="410" y2="196"/>
+          </g>
+          <circle id="f01-disc" cx="210" cy="206" r="128" fill="#3FA535"/>
+        </svg>
+        <div class="horizon" id="f01-horizon"></div>
+      </div>
+
+      <h1 class="heading">
+        <span class="line"><span id="f01-l1">Chaque projet d'énergie</span></span>
+        <span class="line"><span id="f01-l2">commence par une <span class="accent">question.</span></span></span>
+      </h1>
+    </div>
+
+    <div class="mark-slot" id="f01-mark">
+      <span class="wm-a">KAMGA</span><span class="wm-b">ENERGY</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#f01-horizon", { scaleX: 0 }, { scaleX: 1, duration: 0.85, ease: "power3.inOut" }, 0);
+      tl.fromTo("#f01-sun", { yPercent: 46 }, { yPercent: 0, duration: 1.5, ease: "power2.out" }, 0.35);
+      tl.fromTo("#f01-disc", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "none" }, 0.35);
+      tl.fromTo("#f01-rays > line",
+        { opacity: 0, scale: 0.55, transformOrigin: "210px 206px" },
+        { opacity: 1, scale: 1, duration: 0.7, stagger: 0.055, ease: "back.out(2)" }, 1.0);
+      tl.fromTo("#f01-l1", { yPercent: 115 }, { yPercent: 0, duration: 0.72, ease: "power3.out" }, 1.25);
+      tl.fromTo("#f01-l2", { yPercent: 115 }, { yPercent: 0, duration: 0.72, ease: "power3.out" }, 1.45);
+      tl.fromTo("#f01-mark", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65, ease: "power2.out" }, 2.9);
+      window.__timelines["f01-accroche"] = tl;
+    })();
+  </script>
+</template>
+</body></html>

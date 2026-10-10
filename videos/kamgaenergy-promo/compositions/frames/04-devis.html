@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#0B1410; font-family:"Archivo",system-ui,sans-serif; color:#FFFFFF;
+            padding:78px 120px; box-sizing:border-box; display:flex; flex-direction:column; }
+    #root .head { display:flex; align-items:center; gap:24px; height:109px; flex:none; }
+    #root .num { font-size:30px; font-weight:700; color:#0B1410; background:#5BC236; width:52px;
+                 height:52px; border-radius:50%; display:flex; align-items:center;
+                 justify-content:center; flex:none; }
+    #root .head h2 { font-size:54px; font-weight:700; letter-spacing:-0.02em; margin:0; line-height:1.2; }
+    #root .head .hint { font-size:24px; color:#9ED98F; margin:0 0 0 auto; }
+    #root .cols { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; height:664px; margin:auto 0; }
+    #root .col { background:rgba(255,255,255,0.045); border:1.5px solid rgba(91,194,54,0.3);
+                 border-radius:14px; padding:32px 30px; box-sizing:border-box; display:flex;
+                 flex-direction:column; }
+    #root .col h3 { font-size:23px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;
+                    color:#5BC236; margin:0 0 26px; line-height:1.2; }
+    #root .row { display:flex; flex-direction:row; align-items:center; gap:18px; height:56px;
+                 flex:none; font-size:27px; color:#E8F3E4; }
+    #root .box { order:0; width:30px; height:30px; border-radius:7px; border:2.5px solid #5BC236;
+                 flex:none; position:relative; }
+    #root .box svg { position:absolute; inset:4px; stroke:#0B1410; stroke-width:4.5; fill:none;
+                     stroke-linecap:round; stroke-linejoin:round; opacity:0; }
+    #root .box.on { background:#5BC236; }
+    #root .box.on svg { opacity:1; }
+    #root .row .lab { order:1; }
+    #root .mlabel { font-size:24px; color:#A9BDA4; margin:0 0 11px; }
+    #root .meter { height:16px; border-radius:8px; background:rgba(255,255,255,0.1); overflow:hidden;
+                   margin-bottom:34px; }
+    #root .meter i { display:block; height:100%; background:#5BC236; transform-origin:left center; }
+    #root .eq { display:flex; align-items:center; gap:16px; height:56px; flex:none; }
+    #root .eq .dot { width:13px; height:13px; border-radius:50%; background:#5BC236; flex:none; }
+    #root .eq span { font-size:26px; color:#E8F3E4; }
+    #root .est { margin-top:auto; border-top:1.5px solid rgba(91,194,54,0.3); padding-top:26px; }
+    #root .est p { font-size:23px; color:#A9BDA4; margin:0 0 16px; }
+    #root .est .bars { display:flex; gap:11px; }
+    #root .est .bars i { height:30px; border-radius:6px; background:rgba(91,194,54,0.45); flex:1;
+                         transform-origin:left center; }
+    #root .cursor { position:absolute; top:0; left:0; width:54px; height:54px; z-index:95;
+                    pointer-events:none; filter:drop-shadow(0 6px 14px rgba(0,0,0,0.5)); }
+    #root .wipe { position:absolute; top:0; left:0; width:100%; height:100%; background:#3FA535;
+                  z-index:99; pointer-events:none; }
+    #root .depth { position:absolute; inset:0; pointer-events:none; z-index:90;
+                   background:radial-gradient(ellipse at 50% 45%, transparent 48%, rgba(0,0,0,0.44) 100%); }
+    #root .grain { position:absolute; inset:0; pointer-events:none; z-index:91; opacity:0.05;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.55'/></svg>");
+      background-size:160px 160px; mix-blend-mode:overlay; }
+  </style>
+
+  <div id="root" data-composition-id="f04-devis" data-width="1920" data-height="1080">
+    <div class="head">
+      <span class="num" id="f04-num">1</span>
+      <h2 id="f04-title">Montez votre devis</h2>
+      <p class="hint" id="f04-hint">en quelques clics</p>
+    </div>
+
+    <div class="cols">
+      <div class="col" data-col>
+        <h3>Vos appareils</h3>
+        <div class="row"><span class="box" data-box><svg viewBox="0 0 22 22"><path d="M3 11 L8 16 L19 5"/></svg></span><span class="lab">Éclairage</span></div>
+        <div class="row"><span class="box" data-box><svg viewBox="0 0 22 22"><path d="M3 11 L8 16 L19 5"/></svg></span><span class="lab">Réfrigérateur</span></div>
+        <div class="row"><span class="box" data-box><svg viewBox="0 0 22 22"><path d="M3 11 L8 16 L19 5"/></svg></span><span class="lab">Téléviseur</span></div>
+        <div class="row"><span class="box" data-box><svg viewBox="0 0 22 22"><path d="M3 11 L8 16 L19 5"/></svg></span><span class="lab">Ventilateur</span></div>
+        <div class="row"><span class="box" data-box><svg viewBox="0 0 22 22"><path d="M3 11 L8 16 L19 5"/></svg></span><span class="lab">Ordinateur</span></div>
+        <div class="row"><span class="box" data-box><svg viewBox="0 0 22 22"><path d="M3 11 L8 16 L19 5"/></svg></span><span class="lab">Pompe à eau</span></div>
+      </div>
+
+      <div class="col" data-col>
+        <h3>Vos besoins</h3>
+        <p class="mlabel">Consommation journalière</p>
+        <div class="meter"><i data-meter></i></div>
+        <p class="mlabel">Autonomie souhaitée</p>
+        <div class="meter"><i data-meter></i></div>
+        <p class="mlabel">Puissance de pointe</p>
+        <div class="meter"><i data-meter></i></div>
+        <p class="mlabel">Usage jour / nuit</p>
+        <div class="meter"><i data-meter></i></div>
+      </div>
+
+      <div class="col" data-col>
+        <h3>Votre configuration</h3>
+        <div class="eq" data-eq><span class="dot"></span><span>Panneaux photovoltaïques</span></div>
+        <div class="eq" data-eq><span class="dot"></span><span>Onduleur</span></div>
+        <div class="eq" data-eq><span class="dot"></span><span>Batteries</span></div>
+        <div class="eq" data-eq><span class="dot"></span><span>Régulateur de charge</span></div>
+        <div class="eq" data-eq><span class="dot"></span><span>Câblage et protections</span></div>
+        <div class="est">
+          <p id="f04-estlabel">Estimation du projet</p>
+          <div class="bars"><i data-bar></i><i data-bar></i><i data-bar></i></div>
+        </div>
+      </div>
+    </div>
+
+    <svg class="cursor" id="f04-cursor" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M5 2 L5 23 L10.4 18 L13.8 25.4 L17.6 23.6 L14.2 16.4 L21.4 16.2 Z"
+            fill="#FFFFFF" stroke="#0B1410" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+
+    <div class="wipe" id="f04-wipe" data-layout-allow-overflow></div>
+    <div class="depth"></div>
+    <div class="grain"></div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+
+      // Géométrie figée (aucune mesure au rendu) : la pointe du curseur vise le centre
+      // de chaque case. cols hauteur 700, centrée dans 815 d'espace libre.
+      const COLS_TOP = 78 + 109 + (815 - 664) / 2;   // 262.5
+      const ROW0 = COLS_TOP + 32 + 27.6 + 26 + 28;   // centre de la 1re case
+      const ROW_PITCH = 56;
+      const BOX_CX = 120 + 30 + 15;                  // 165
+      const TIP_X = 9.6, TIP_Y = 3.9;                // pointe dans le SVG 54px
+
+      tl.fromTo("#f04-wipe", { xPercent: 0 }, { xPercent: 101, duration: 0.42, ease: "power2.out" }, 0);
+      tl.fromTo("#f04-num", { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 0.3);
+      tl.fromTo("#f04-title", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 0.38);
+      tl.fromTo("#f04-hint", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "none" }, 0.65);
+      tl.fromTo("[data-col]", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.22, ease: "power3.out" }, 0.5);
+
+      const boxes = Array.prototype.slice.call(document.querySelectorAll("[data-box]"));
+      gsap.set("#f04-cursor", { opacity: 0, x: BOX_CX - TIP_X + 260, y: ROW0 - TIP_Y + 200 });
+      boxes.forEach(function (b, i) {
+        const t = 1.05 + i * 0.26;
+        const x = BOX_CX - TIP_X;
+        const y = ROW0 + i * ROW_PITCH - TIP_Y;
+        if (i === 0) {
+          tl.to("#f04-cursor", { opacity: 1, x: x, y: y, duration: 0.55, ease: "power3.out" }, t - 0.5);
+        } else {
+          tl.to("#f04-cursor", { x: x, y: y, duration: 0.2, ease: "power2.inOut" }, t - 0.17);
+        }
+        tl.to("#f04-cursor", { scale: 0.84, duration: 0.08, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "9.6px 3.9px" }, t);
+        tl.call(function () { b.classList.add("on"); }, null, t);
+        tl.fromTo(b, { scale: 1 }, { scale: 1.22, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%" }, t);
+      });
+      tl.to("#f04-cursor", { opacity: 0, x: "+=170", y: "+=130", duration: 0.4, ease: "power2.in" }, 2.75);
+
+      tl.fromTo("[data-meter]", { scaleX: 0 }, { scaleX: 1, duration: 0.75, stagger: 0.18, ease: "power2.inOut" }, 2.6);
+      tl.fromTo("[data-eq]", { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.17, ease: "power2.out" }, 3.85);
+      tl.fromTo("#f04-estlabel", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "none" }, 5.0);
+      tl.fromTo("[data-bar]", { scaleX: 0 }, { scaleX: 1, duration: 0.5, stagger: 0.13, ease: "power3.out" }, 5.15);
+
+      window.__timelines["f04-devis"] = tl;
+    })();
+  </script>
+</template>
+</body></html>

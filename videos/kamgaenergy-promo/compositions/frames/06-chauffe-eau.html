@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#0B1410; font-family:"Archivo",system-ui,sans-serif; color:#FFFFFF;
+            padding:70px 110px; box-sizing:border-box; display:flex; flex-direction:column; }
+    #root .head { display:flex; align-items:center; gap:24px; margin-bottom:34px; }
+    #root .num { font-size:30px; font-weight:700; color:#0B1410; background:#5BC236; width:52px;
+                 height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; }
+    #root .head h2 { font-size:54px; font-weight:700; letter-spacing:-0.02em; margin:0; }
+    #root .body { display:grid; grid-template-columns:520px 1fr; gap:54px; flex:1; }
+    #root .fields { display:flex; flex-direction:column; }
+    #root .f { margin-bottom:34px; }
+    #root .f .lbl { display:flex; align-items:center; gap:13px; font-size:28px; color:#E8F3E4; margin-bottom:12px; }
+    #root .f .tick { width:24px; height:24px; border-radius:50%; background:#5BC236; flex:none;
+                     display:flex; align-items:center; justify-content:center; }
+    #root .f .tick svg { width:14px; height:14px; stroke:#0B1410; stroke-width:4; fill:none;
+                         stroke-linecap:round; stroke-linejoin:round; }
+    #root .f .track { height:10px; border-radius:5px; background:rgba(255,255,255,0.1); overflow:hidden; }
+    #root .f .track i { display:block; height:100%; background:#5BC236; transform-origin:left center; }
+    #root .note { margin-top:auto; border-left:3px solid #5BC236; padding:4px 0 4px 20px;
+                  font-size:23px; line-height:1.5; color:#A9BDA4; }
+    #root .scheme { display:flex; align-items:center; justify-content:center; }
+    #root .scheme svg { width:100%; height:100%; max-height:790px; }
+    #root .st { stroke:#7FD46A; stroke-width:4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    #root .hot { stroke:#5BC236; stroke-width:6; fill:none; stroke-linecap:round; }
+    #root .water { fill:rgba(91,194,54,0.3); }
+    #root .cap { fill:#B7E3A8; font-size:27px; font-weight:500; font-family:"Archivo",sans-serif; }
+    #root .depth { position:absolute; inset:0; pointer-events:none; z-index:90;
+      background:radial-gradient(ellipse at 50% 42%, transparent 40%, rgba(0,0,0,0.5) 100%); }
+    #root .grain { position:absolute; inset:0; pointer-events:none; z-index:91; opacity:0.05;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.55'/></svg>");
+      background-size:160px 160px; mix-blend-mode:overlay; }
+    #root .flow { stroke:#A8F08C; stroke-width:7; fill:none; stroke-linecap:round;
+      stroke-dasharray:3 30; opacity:0.95; }
+    #root .wipe { position:absolute; top:0; left:0; width:100%; height:100%; background:#3FA535;
+      z-index:99; pointer-events:none; }
+  </style>
+
+  <div id="root" data-composition-id="f06-chauffe-eau" data-width="1920" data-height="1080">
+    <div class="head">
+      <span class="num" id="f06-num">3</span>
+      <h2 id="f06-title">Dimensionnez votre chauffe-eau solaire</h2>
+    </div>
+
+    <div class="body">
+      <div class="fields">
+        <div class="f" data-f>
+          <div class="lbl"><span class="tick" data-tick><svg viewBox="0 0 20 20"><path d="M3 10 L8 15 L17 4"/></svg></span>Besoins en eau chaude</div>
+          <div class="track"><i data-fill></i></div>
+        </div>
+        <div class="f" data-f>
+          <div class="lbl"><span class="tick" data-tick><svg viewBox="0 0 20 20"><path d="M3 10 L8 15 L17 4"/></svg></span>Nombre d'utilisateurs</div>
+          <div class="track"><i data-fill></i></div>
+        </div>
+        <div class="f" data-f>
+          <div class="lbl"><span class="tick" data-tick><svg viewBox="0 0 20 20"><path d="M3 10 L8 15 L17 4"/></svg></span>Conditions d'utilisation</div>
+          <div class="track"><i data-fill></i></div>
+        </div>
+        <p class="note" id="f06-note">La configuration définitive peut nécessiter une validation technique.</p>
+      </div>
+
+      <div class="scheme">
+        <svg viewBox="0 0 960 780" fill="none" aria-hidden="true">
+          <circle id="f06-sun" class="st" cx="104" cy="92" r="42"/>
+          <g id="f06-rays" class="st"><path d="M174 56 L228 28"/><path d="M184 100 L240 100"/><path d="M174 144 L228 172"/></g>
+          <g id="f06-coll"><path class="st" d="M300 250 L432 110 L656 110 L524 250 Z"/><path class="st" d="M358 184 L582 184"/><path class="st" d="M412 250 L544 110"/></g>
+          <path id="f06-roof" class="st" d="M232 332 L492 250 L820 250"/>
+          <g id="f06-tank"><rect class="st" x="636" y="352" width="168" height="302" rx="22"/></g>
+          <rect id="f06-tankwater" class="water" x="644" y="376" width="152" height="270" rx="18"/>
+          <text class="cap" id="f06-cap1" x="620" y="704">Ballon de stockage</text>
+          <path id="f06-circ" class="hot" d="M524 212 L720 212 L720 352"/>
+          <path id="f06-dist" class="hot" d="M636 520 L372 520 L372 640"/>
+          <path id="f06-flowa" class="flow" d="M524 212 L720 212 L720 352"/>
+          <path id="f06-flowb" class="flow" d="M636 520 L372 520 L372 640"/>
+          <g id="f06-use"><path class="st" d="M316 640 L428 640"/><path class="st" d="M340 640 L340 706"/><path class="st" d="M404 640 L404 706"/><path class="st" d="M316 706 L428 706"/></g>
+          <text class="cap" id="f06-cap2" x="276" y="756">Points d'usage</text>
+          <text class="cap" id="f06-cap3" x="300" y="86">Captation solaire</text>
+        </svg>
+      </div>
+    </div>
+    <div class="wipe" id="f06-wipe" data-layout-allow-overflow></div>
+    <div class="depth"></div>
+    <div class="grain"></div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      ["#f06-roof", "#f06-circ", "#f06-dist"].forEach(function (sel) {
+        const el = document.querySelector(sel);
+        if (el && el.getTotalLength) {
+          const l = el.getTotalLength();
+          gsap.set(el, { strokeDasharray: l, strokeDashoffset: l });
+        }
+      });
+      tl.fromTo("#f06-num", { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 0);
+      tl.fromTo("#f06-title", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.08);
+
+      tl.to("#f06-roof", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 0.3);
+      tl.fromTo("#f06-coll", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.5);
+      tl.fromTo("#f06-sun", { opacity: 0, scale: 0.4, transformOrigin: "96px 74px" }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 0.35);
+      tl.fromTo("#f06-rays > path", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.07, ease: "power2.out" }, 0.7);
+      tl.fromTo("#f06-cap3", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "none" }, 0.9);
+
+      tl.fromTo("#f06-tank", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 1.05);
+      tl.to("#f06-circ", { strokeDashoffset: 0, duration: 0.85, ease: "power2.inOut" }, 1.2);
+      tl.fromTo("#f06-tankwater", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.9, ease: "power1.inOut" }, 1.95);
+      tl.fromTo("#f06-cap1", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "none" }, 2.1);
+      tl.to("#f06-dist", { strokeDashoffset: 0, duration: 0.75, ease: "power2.inOut" }, 2.7);
+      tl.fromTo("#f06-use", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "none" }, 3.3);
+      tl.fromTo("#f06-cap2", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "none" }, 3.5);
+
+      document.querySelectorAll("[data-f]").forEach(function (f, i) {
+        const t = 0.75 + i * 0.62;
+        tl.fromTo(f, { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, t);
+        tl.fromTo(f.querySelector("[data-fill]"), { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.inOut" }, t + 0.15);
+        tl.fromTo(f.querySelector("[data-tick]"), { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "back.out(2.4)" }, t + 0.65);
+      });
+      tl.fromTo("#f06-note", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 3.6);
+      // le flux solaire descend vers le ballon, puis l'eau chaude part vers les usages
+      gsap.set(["#f06-flowa", "#f06-flowb"], { opacity: 0 });
+      tl.to("#f06-flowa", { opacity: 1, duration: 0.3 }, 1.9);
+      tl.fromTo("#f06-flowa", { strokeDashoffset: 0 }, { strokeDashoffset: -340, duration: 1.5, repeat: 1, ease: "none" }, 1.9);
+      tl.to("#f06-flowb", { opacity: 1, duration: 0.3 }, 3.3);
+      tl.fromTo("#f06-flowb", { strokeDashoffset: 0 }, { strokeDashoffset: -390, duration: 1.4, ease: "none" }, 3.3);
+      // transition sortante : le vert revient vers la gauche, on quitte le numérique
+      tl.fromTo("#f06-wipe", { xPercent: 101 }, { xPercent: 0, duration: 0.38, ease: "power2.in" }, 5.62);
+      window.__timelines["f06-chauffe-eau"] = tl;
+    })();
+  </script>
+</template>
+</body></html>

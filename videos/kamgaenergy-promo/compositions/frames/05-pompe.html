@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#0B1410; font-family:"Archivo",system-ui,sans-serif; color:#FFFFFF;
+            padding:70px 110px; box-sizing:border-box; display:flex; flex-direction:column; }
+    #root .head { display:flex; align-items:center; gap:24px; margin-bottom:34px; }
+    #root .num { font-size:30px; font-weight:700; color:#0B1410; background:#5BC236; width:52px;
+                 height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; }
+    #root .head h2 { font-size:54px; font-weight:700; letter-spacing:-0.02em; margin:0; }
+    #root .body { display:grid; grid-template-columns:540px 1fr; gap:54px; flex:1; align-items:stretch; }
+    #root .fields { display:flex; flex-direction:column; }
+    #root .f { margin-bottom:30px; }
+    #root .f .lbl { display:flex; align-items:center; gap:13px; font-size:27px; color:#E8F3E4; margin-bottom:11px; }
+    #root .f .tick { width:24px; height:24px; border-radius:50%; background:#5BC236; flex:none;
+                     display:flex; align-items:center; justify-content:center; }
+    #root .f .tick svg { width:14px; height:14px; stroke:#0B1410; stroke-width:4; fill:none;
+                         stroke-linecap:round; stroke-linejoin:round; }
+    #root .f .track { height:10px; border-radius:5px; background:rgba(255,255,255,0.1); overflow:hidden; }
+    #root .f .track i { display:block; height:100%; background:#5BC236; transform-origin:left center; }
+    #root .results { margin-top:auto; border-top:1.5px solid rgba(91,194,54,0.3); padding-top:26px; }
+    #root .results p { font-size:21px; letter-spacing:0.07em; text-transform:uppercase; color:#5BC236; margin:0 0 18px; }
+    #root .chips { display:flex; flex-wrap:wrap; gap:12px; }
+    #root .chip { border:1.5px solid rgba(91,194,54,0.45); border-radius:100px; padding:11px 22px;
+                  font-size:22px; color:#E8F3E4; }
+    #root .scheme { display:flex; align-items:center; justify-content:center; }
+    #root .scheme svg { width:100%; height:100%; max-height:800px; }
+    #root .st { stroke:#7FD46A; stroke-width:4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    #root .dim { stroke:#5BC236; stroke-width:2.5; fill:none; stroke-dasharray:9 8; }
+    #root .solid { fill:#5BC236; }
+    #root .water { fill:rgba(91,194,54,0.3); }
+    #root .cap { fill:#B7E3A8; font-size:27px; font-weight:500; font-family:"Archivo",sans-serif; }
+    #root .depth { position:absolute; inset:0; pointer-events:none; z-index:90;
+      background:radial-gradient(ellipse at 50% 42%, transparent 40%, rgba(0,0,0,0.5) 100%); }
+    #root .grain { position:absolute; inset:0; pointer-events:none; z-index:91; opacity:0.05;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.55'/></svg>");
+      background-size:160px 160px; mix-blend-mode:overlay; }
+    #root .flow { stroke:#A8F08C; stroke-width:7; fill:none; stroke-linecap:round;
+      stroke-dasharray:3 30; opacity:0.95; }
+  </style>
+
+  <div id="root" data-composition-id="f05-pompe" data-width="1920" data-height="1080">
+    <div class="head">
+      <span class="num" id="f05-num">2</span>
+      <h2 id="f05-title">Dimensionnez votre pompe solaire</h2>
+    </div>
+
+    <div class="body">
+      <div class="fields">
+        <div class="f" data-f>
+          <div class="lbl"><span class="tick" data-tick><svg viewBox="0 0 20 20"><path d="M3 10 L8 15 L17 4"/></svg></span>Profondeur du forage</div>
+          <div class="track"><i data-fill></i></div>
+        </div>
+        <div class="f" data-f>
+          <div class="lbl"><span class="tick" data-tick><svg viewBox="0 0 20 20"><path d="M3 10 L8 15 L17 4"/></svg></span>Hauteur de refoulement</div>
+          <div class="track"><i data-fill></i></div>
+        </div>
+        <div class="f" data-f>
+          <div class="lbl"><span class="tick" data-tick><svg viewBox="0 0 20 20"><path d="M3 10 L8 15 L17 4"/></svg></span>Distance de conduite</div>
+          <div class="track"><i data-fill></i></div>
+        </div>
+        <div class="f" data-f>
+          <div class="lbl"><span class="tick" data-tick><svg viewBox="0 0 20 20"><path d="M3 10 L8 15 L17 4"/></svg></span>Volume d'eau journalier</div>
+          <div class="track"><i data-fill></i></div>
+        </div>
+
+        <div class="results">
+          <p id="f05-rlabel">L'outil en déduit</p>
+          <div class="chips">
+            <span class="chip" data-chip>Hauteur manométrique totale</span>
+            <span class="chip" data-chip>Débit recherché</span>
+            <span class="chip" data-chip>Caractéristiques de pompe</span>
+            <span class="chip" data-chip>Configuration solaire</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scheme">
+        <svg viewBox="0 0 980 800" fill="none" aria-hidden="true">
+          <circle id="f05-sun" class="st" cx="96" cy="74" r="40"/>
+          <g id="f05-pv"><path class="st" d="M150 244 L206 132 L348 132 L292 244 Z"/><path class="st" d="M221 244 L277 132"/><path class="st" d="M178 188 L320 188"/><path class="st" d="M221 244 L221 296"/><path class="st" d="M182 296 L260 296"/></g>
+          <path id="f05-ground" class="st" d="M24 300 L956 300"/>
+          <g id="f05-tank"><path class="st" d="M648 296 L648 136 L896 136 L896 296"/><path class="st" d="M648 136 L896 136"/><path class="st" d="M684 296 L684 356"/><path class="st" d="M860 296 L860 356"/></g>
+          <rect id="f05-tankwater" class="water" x="654" y="178" width="236" height="118"/>
+          <g id="f05-bore"><path class="st" d="M424 300 L424 724"/><path class="st" d="M528 300 L528 724"/><path class="st" d="M424 724 L528 724"/></g>
+          <rect id="f05-aquifer" class="water" x="427" y="576" width="98" height="148"/>
+          <g id="f05-pump"><rect class="solid" x="450" y="624" width="52" height="88" rx="8"/><path class="st" d="M476 624 L476 592"/></g>
+          <path id="f05-pipe" class="st" d="M476 592 L476 196 L648 196"/>
+          <path id="f05-flow" class="flow" d="M476 592 L476 196 L648 196"/>
+          <g id="f05-dim1"><path class="dim" d="M356 300 L356 708"/><path class="dim" d="M342 300 L370 300"/><path class="dim" d="M342 708 L370 708"/><text class="cap" x="140" y="520">Profondeur</text></g>
+          <g id="f05-dim2"><path class="dim" d="M936 196 L936 300"/><path class="dim" d="M922 196 L950 196"/><path class="dim" d="M922 300 L950 300"/><text class="cap" x="700" y="118">Refoulement</text></g>
+          <g id="f05-dim3"><path class="dim" d="M476 150 L648 150"/><path class="dim" d="M476 134 L476 166"/><path class="dim" d="M648 134 L648 166"/><text class="cap" x="486" y="118">Conduite</text></g>
+        </svg>
+      </div>
+    </div>
+    <div class="depth"></div>
+    <div class="grain"></div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      ["#f05-ground", "#f05-pipe"].forEach(function (sel) {
+        const el = document.querySelector(sel);
+        if (el && el.getTotalLength) {
+          const l = el.getTotalLength();
+          gsap.set(el, { strokeDasharray: l, strokeDashoffset: l });
+        }
+      });
+      tl.fromTo("#f05-num", { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 0);
+      tl.fromTo("#f05-title", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.08);
+
+      tl.to("#f05-ground", { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 0.3);
+      tl.fromTo("#f05-bore", { opacity: 0, yPercent: -6 }, { opacity: 1, yPercent: 0, duration: 0.6, ease: "power2.out" }, 0.6);
+      tl.fromTo("#f05-aquifer", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 0.95);
+      tl.fromTo("#f05-pump", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 1.15);
+      tl.to("#f05-pipe", { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, 1.35);
+      tl.fromTo("#f05-tank", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "none" }, 1.5);
+      tl.fromTo("#f05-tankwater", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.8, ease: "power1.inOut" }, 2.35);
+      tl.fromTo("#f05-pv", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.0);
+      tl.fromTo("#f05-sun", { opacity: 0, scale: 0.4, transformOrigin: "92px 62px" }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 0.8);
+
+      // chaque champ saisi fait apparaître sa cote
+      const dims = ["#f05-dim1", "#f05-dim2", "#f05-dim3", null];
+      gsap.set(["#f05-dim1", "#f05-dim2", "#f05-dim3"], { opacity: 0 });
+      document.querySelectorAll("[data-f]").forEach(function (f, i) {
+        const t = 0.9 + i * 0.52;
+        tl.fromTo(f, { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, t);
+        tl.fromTo(f.querySelector("[data-fill]"), { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, t + 0.15);
+        tl.fromTo(f.querySelector("[data-tick]"), { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "back.out(2.4)" }, t + 0.6);
+        if (dims[i]) tl.to(dims[i], { opacity: 1, duration: 0.4, ease: "power2.out" }, t + 0.6);
+      });
+
+      tl.fromTo("#f05-rlabel", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "none" }, 2.9);
+      tl.fromTo("[data-chip]", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.38, stagger: 0.13, ease: "power2.out" }, 3.1);
+      // l'eau remonte réellement dans la conduite
+      gsap.set("#f05-flow", { opacity: 0 });
+      tl.to("#f05-flow", { opacity: 1, duration: 0.3 }, 2.4);
+      tl.fromTo("#f05-flow", { strokeDashoffset: 0 }, { strokeDashoffset: -660, duration: 2.0, repeat: 1, ease: "none" }, 2.4);
+      window.__timelines["f05-pompe"] = tl;
+    })();
+  </script>
+</template>
+</body></html>

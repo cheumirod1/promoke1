@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#FFFFFF; font-family:"Archivo",system-ui,sans-serif; color:#111111;
+            display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    #root .disc { position:absolute; top:50%; left:50%; width:1200px; height:1200px; margin:-600px 0 0 -600px;
+                  border-radius:50%; background:rgba(63,165,53,0.06); }
+    #root .inner { position:relative; display:flex; flex-direction:column; align-items:center; }
+    #root .sun { width:132px; height:132px; margin-bottom:38px; }
+    #root .sun .r { stroke:#3FA535; stroke-width:7; stroke-linecap:round; }
+    #root .mark { display:flex; align-items:center; margin-bottom:34px; }
+    #root .wm-a { background:#111111; color:#FFFFFF; font-weight:700; font-size:62px;
+                  letter-spacing:0.02em; padding:14px 26px 14px 30px; }
+    #root .wm-b { background:#33872B; color:#FFFFFF; font-weight:700; font-size:62px;
+                  letter-spacing:0.02em; padding:14px 30px 14px 26px; }
+    #root .cta { font-size:46px; font-weight:600; letter-spacing:-0.015em; margin:0 0 42px; text-align:center; }
+    #root .pills { display:flex; gap:18px; margin-bottom:50px; }
+    #root .p { border:2px solid rgba(63,165,53,0.4); border-radius:100px; padding:15px 34px;
+               font-size:27px; font-weight:500; color:#111111; }
+    #root .p b { color:#33872B; font-weight:600; }
+    #root .site { font-size:32px; font-weight:600; color:#33872B; letter-spacing:0.01em; margin:0; }
+    #root .rule { width:0; height:3px; background:#3FA535; margin:0 0 30px; }
+    #root .mark { position:relative; overflow:hidden; }
+    #root .sweep { position:absolute; top:0; left:0; width:38%; height:100%; z-index:5;
+      pointer-events:none; background:linear-gradient(100deg, transparent 0%,
+      rgba(255,255,255,0.58) 50%, transparent 100%); }
+  </style>
+
+  <div id="root" data-composition-id="f08-signature" data-width="1920" data-height="1080">
+    <div class="disc" id="f08-disc" data-layout-allow-overflow></div>
+    <div class="inner" data-layout-allow-overflow>
+      <svg class="sun" id="f08-sun" viewBox="0 0 132 132" fill="none" aria-hidden="true">
+        <g id="f08-rays" class="r"><line x1="66" y1="16" x2="66" y2="2"/><line x1="34" y1="26" x2="26" y2="13"/><line x1="98" y1="26" x2="106" y2="13"/><line x1="16" y1="52" x2="2" y2="47"/><line x1="116" y1="52" x2="130" y2="47"/></g>
+        <circle id="f08-disc2" cx="66" cy="74" r="44" fill="#3FA535"/>
+      </svg>
+
+      <div class="mark" id="f08-mark">
+        <span class="wm-a">KAMGA</span><span class="wm-b">ENERGY</span>
+        <span class="sweep" id="f08-sweep"></span>
+      </div>
+
+      <div class="rule" id="f08-rule"></div>
+
+      <p class="cta" id="f08-cta">Préparez votre projet solaire dès maintenant.</p>
+
+      <div class="pills">
+        <span class="p" data-p><b>1</b> &nbsp;Votre devis</span>
+        <span class="p" data-p><b>2</b> &nbsp;Votre pompe solaire</span>
+        <span class="p" data-p><b>3</b> &nbsp;Votre chauffe-eau</span>
+      </div>
+
+      <p class="site" id="f08-site">www.kamgaenergy.com</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#f08-disc", { scale: 0.2, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 1.3, ease: "power3.out" }, 0);
+      tl.fromTo("#f08-disc2", { scale: 0.3, transformOrigin: "66px 74px" }, { scale: 1, duration: 0.7, ease: "back.out(1.7)" }, 0.2);
+      tl.fromTo("#f08-rays > line", { opacity: 0, scale: 0.5, transformOrigin: "66px 74px" }, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.06, ease: "back.out(2)" }, 0.55);
+      tl.fromTo("#f08-mark", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.9);
+      tl.fromTo("#f08-rule", { width: 0 }, { width: 120, duration: 0.6, ease: "power3.inOut" }, 1.5);
+      tl.fromTo("#f08-cta", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 1.75);
+      tl.fromTo("[data-p]", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.16, ease: "power3.out" }, 2.2);
+      tl.fromTo("#f08-site", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "none" }, 3.0);
+      // balayage lumineux : la finition qui fait exister le bloc de marque
+      tl.fromTo("#f08-sweep", { xPercent: -140, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 0.35, ease: "none" }, 1.55);
+      tl.to("#f08-sweep", { xPercent: 300, duration: 0.95, ease: "power1.inOut" }, 1.9);
+      tl.to("#f08-sweep", { opacity: 0, duration: 0.3, ease: "none" }, 2.6);
+      window.__timelines["f08-signature"] = tl;
+    })();
+  </script>
+</template>
+</body></html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8" /></head><body>
+<template>
+  <style>
+    @font-face { font-family:"Archivo"; src:url("public/fonts/archivo-latin.woff2") format("woff2"); font-weight:100 900; font-display:block; }
+    #root { position:absolute; inset:0; width:100%; height:100%; overflow:hidden;
+            background:#FFFFFF; font-family:"Archivo",system-ui,sans-serif; color:#111111;
+            display:grid; grid-template-columns:1fr 1fr; align-items:center; }
+    #root .left { padding:0 70px 0 130px; }
+    #root .eyebrow { font-size:21px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+                     color:#33872B; margin:0 0 26px; }
+    #root .rule { width:72px; height:4px; background:#3FA535; transform-origin:left center; margin-bottom:34px; }
+    #root .claim { font-size:62px; font-weight:700; line-height:1.14; letter-spacing:-0.02em;
+                   margin:0 0 38px; max-width:740px; }
+    #root .claim em { font-style:normal; color:#3FA535; }
+    #root .sub { font-size:26px; font-weight:400; line-height:1.55; color:#5A5A5A; margin:0; max-width:660px; }
+    #root .right { position:relative; height:100%; display:flex; align-items:center; justify-content:center; }
+    #root .draw { width:820px; height:660px; }
+    #root .draw .ln { stroke:#111111; stroke-width:4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    #root .draw .gr { stroke:#3FA535; stroke-width:4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    #root .draw .pv { fill:rgba(63,165,53,0.16); stroke:#3FA535; stroke-width:4; stroke-linejoin:round; }
+    #root .draw .win { fill:#111111; }
+    #root .draw .band { fill:#3FA535; }
+    #root .draw .glass { fill:#16211A; stroke:#111111; stroke-width:4; }
+  </style>
+
+  <div id="root" data-composition-id="f02-entreprise" data-width="1920" data-height="1080">
+    <div class="left">
+      <p class="eyebrow" id="f02-eyebrow">Installation &amp; Vente</p>
+      <div class="rule" id="f02-rule"></div>
+      <h2 class="claim" id="f02-claim">Une énergie propre, durable et <em>accessible à tous.</em></h2>
+      <p class="sub" id="f02-sub">KAMGAENERGY conçoit, installe et entretient des solutions solaires.</p>
+    </div>
+
+    <div class="right">
+      <svg class="draw" id="f02-draw" viewBox="0 -20 820 690" fill="none" aria-hidden="true">
+        <!-- corniche + étage -->
+        <path class="ln" id="f02-p2" d="M44 118 L776 118"/>
+        <path class="ln" id="f02-p1" d="M78 118 L78 306 L742 306 L742 118"/>
+        <rect class="win" id="f02-w1" x="150" y="160" width="118" height="96" rx="3"/>
+        <rect class="win" id="f02-w2" x="552" y="160" width="118" height="96" rx="3"/>
+        <!-- bandeau vert (auvent) -->
+        <rect class="band" id="f02-band" x="78" y="306" width="664" height="64" rx="2"/>
+        <!-- vitrines sombres -->
+        <rect class="glass" id="f02-g1" x="110" y="404" width="236" height="192" rx="3"/>
+        <rect class="glass" id="f02-g2" x="474" y="404" width="236" height="192" rx="3"/>
+        <!-- porte centrale -->
+        <path class="ln" id="f02-p3" d="M370 596 L370 404 L450 404 L450 596"/>
+        <!-- sol + socle -->
+        <path class="ln" id="f02-p4" d="M40 596 L780 596"/>
+        <path class="ln" id="f02-p7" d="M66 626 L754 626"/>
+        <!-- panneaux solaires posés en façade -->
+        <path class="pv" id="f02-p5" d="M96 592 L140 464 L236 464 L192 592 Z"/>
+        <path class="pv" id="f02-p6" d="M584 592 L628 464 L724 464 L680 592 Z"/>
+        <path class="gr" id="f02-p8" d="M118 528 L214 528"/>
+        <path class="gr" id="f02-p9" d="M606 528 L702 528"/>
+        <!-- soleil -->
+        <circle class="gr" id="f02-sun" cx="700" cy="60" r="36"/>
+        <g class="gr" id="f02-sunrays"><path d="M700 10 L700 -8"/><path d="M652 28 L638 10"/><path d="M748 28 L762 10"/><path d="M648 60 L626 60"/></g>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const strokes = ["#f02-p2","#f02-p1","#f02-p4","#f02-p7","#f02-p3"];
+      strokes.forEach(function (sel) {
+        const el = document.querySelector(sel);
+        if (!el || !el.getTotalLength) return;
+        const len = el.getTotalLength();
+        gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
+      });
+      tl.fromTo("#f02-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.1);
+      tl.fromTo("#f02-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.3);
+      tl.fromTo("#f02-claim", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.75, ease: "power3.out" }, 0.45);
+      tl.fromTo("#f02-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.75);
+
+      tl.to(strokes, { strokeDashoffset: 0, duration: 1.25, stagger: 0.12, ease: "power2.inOut" }, 0.5);
+      tl.fromTo(["#f02-w1","#f02-w2"], { opacity: 0 }, { opacity: 1, duration: 0.45, stagger: 0.1, ease: "none" }, 1.0);
+      tl.fromTo("#f02-band", { scaleX: 0, transformOrigin: "78px 338px" }, { scaleX: 1, duration: 0.6, ease: "power3.out" }, 1.15);
+      tl.fromTo(["#f02-g1","#f02-g2"], { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.1, ease: "none" }, 1.5);
+      tl.fromTo(["#f02-p5","#f02-p6"], { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.12, ease: "power3.out" }, 1.75);
+      tl.fromTo(["#f02-p8","#f02-p9"], { opacity: 0 }, { opacity: 1, duration: 0.35, stagger: 0.08, ease: "none" }, 2.15);
+      tl.fromTo("#f02-sun", { opacity: 0, scale: 0.4, transformOrigin: "700px 60px" }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)" }, 2.1);
+      tl.fromTo("#f02-sunrays > path", { opacity: 0, scale: 0.5, transformOrigin: "700px 60px" }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.06, ease: "back.out(2)" }, 2.45);
+      window.__timelines["f02-entreprise"] = tl;
+    })();
+  </script>
+</template>
+</body></html>
