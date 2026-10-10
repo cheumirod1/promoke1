@@ -1,0 +1,36 @@
+=== SOURCE : enseigne de la devanture (photo fournie par le client) — texte authentique ===
+INSTALLATION & VENTE
+KAMGA ENERGY
+Fournir l'énergie d'un Niger Prospère
+BiO SOLAIRE UE
+- Panneaux solaires et onduleurs
+- Batteries lithium et gel
+- Contrôleurs de charge (MPPT, PWM)
+- Câblage solaire (fils, maison, jardin)
+- Kits solaires complets résidentiels & pros
+- Conseil et dimensionnement
+- Installation par une équipe qualifiée
+Une énergie propre, durable et accessible pour tous.
+
+=== SOURCE : brief client — services déclarés ===
+- L'étude et l'installation de systèmes solaires photovoltaïques.
+- La vente de matériels et d'équipements solaires.
+- Le dimensionnement et l'installation de systèmes de pompage solaire.
+- L'installation de chauffe-eau solaires.
+- La maintenance, le diagnostic et l'optimisation des installations déjà réalisées.
+- Le conseil et l'accompagnement technique des clients.
+
+=== SOURCE : brief client — outils numériques (inventaire de champs autorisé) ===
+A. Devis solaire (assistant.html) : sélection des appareils à alimenter ; saisie des besoins
+   énergétiques ; proposition d'une configuration solaire adaptée ; visualisation des
+   équipements recommandés ; estimation du coût et préparation du devis.
+B. Pompe solaire (pompe.html) : profondeur du puits ou forage ; hauteur de refoulement ;
+   distance de conduite ; volume d'eau souhaité et besoins journaliers.
+   Restitution : hauteur manométrique totale ; débit recherché ; caractéristiques de pompe ;
+   configuration solaire indicative.
+C. Chauffe-eau solaire (chauffe-eau.html) : besoins en eau chaude ; nombre d'utilisateurs ;
+   conditions d'utilisation. Principe : captation → chauffage → ballon → distribution.
+
+=== NON DOCUMENTÉ — INTERDIT À L'ÉCRAN ===
+Aucun prix, aucun délai, aucun pourcentage d'économie, aucune performance chiffrée,
+aucun résultat de calcul. Le « 65.000 » visible sur la photo est exclu du cadrage.
